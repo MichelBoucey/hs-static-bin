@@ -1,9 +1,11 @@
+build:
+	@test -d static-bin || mkdir static-bin
+	docker run --mount type=bind,src=$(CURDIR)/static-bin/,dst=/tmp/bin/ -it hs-static-bin
 
-install: build
-	docker run --mount type=bind,src=/home/hank/.cabal/bin/,dst=/tmp/bin/ -it hs-static-bin
-
-build: pre-build
+build-image:
 	docker buildx build -t hs-static-bin ./docker
 
-pre-build:
-	@test -d bin || mkdir bin
+all: clean build-image build
+
+clean:
+	rm -rf $(CURDIR)/static-bin/

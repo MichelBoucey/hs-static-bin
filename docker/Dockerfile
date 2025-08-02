@@ -6,12 +6,12 @@ ENV PATH="/root/.ghcup/bin:$PATH" \
     BOOTSTRAP_HASKELL_CABAL_VERSION=3.16.0.0 \
     BOOTSTRAP_HASKELL_ADJUST_BASHRC=P
 
-RUN apk add --no-cache binutils-gold curl gcc g++ gmp gmp-dev libc-dev \
-    libffi-dev make musl-dev ncurses-dev perl tar xz zlib-dev git \
+RUN apk --no-cache add binutils-gold curl gcc g++ git gmp-dev ncurses-dev ncurses-static \
+    libffi-dev make xz tar perl zlib-dev zlib-static sudo libc6-compat gmp-static \
     && curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 
-ADD build.sh .
+ADD cabal-build.sh .
 
-RUN chmod 755 build.sh
+RUN chmod 755 cabal-build.sh
 
-ENTRYPOINT ["/build.sh"]
+ENTRYPOINT ["/cabal-build.sh"]
