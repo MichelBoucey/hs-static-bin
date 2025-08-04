@@ -8,7 +8,7 @@ help:
 	@echo "   clean         Remove static-bin/ where the binary artefact is delivered"
 	@echo "   clean-all     Remove also hs-static-bin Docker image"
 	@echo
-	@echo "(c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)"
+	@echo "Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)"
 
 image:
 	docker buildx build -t hs-static-bin ./docker/
