@@ -29,9 +29,9 @@ _N.B._ : 1°/ A single build is normally enough, 2°/ You will never have to log
 
 ### 2.2. Adjust the Haskell script build process
 
-You have to edit `script/build.sh`. You have at least to set `HASKELL_GIT_REPO` variable to an Haskell Git repo building an executable just by running a `cabal install` command inside it.
+You have to edit `script/build.sh`. You have at least to set `HASKELL_GIT_REPO` variable to an Haskell Git repo building an executable just by running a `cabal install` command inside.
 
-_N.B._ : Between tries to get build success, you won't have to rebuild the `hs-static-bin` Docker image, because `build.sh` is dynamically mounted during the running of a `hs-static-bin` container.
+_N.B._ : Between your tries to get a build success, you won't have to rebuild the `hs-static-bin` Docker image with a `make image`, because `build.sh` is dynamically mounted during the running of a `hs-static-bin` container.
 
 ### 2.3. Building the binary artefact
 
