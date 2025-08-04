@@ -23,6 +23,15 @@ Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)
 
 ### 2.1. Building the hs-static-bin Docker image
 
+#### 2.1.1. Set GHC and Cabal versions
+
+You have first to set the GHC and Cabal versions you need in `docker/Dockerfile` through two variables given by `GHCup`:
+
+- BOOTSTRAP_HASKELL_GHC_VERSION
+- BOOTSTRAP_HASKELL_CABAL_VERSION
+
+#### 2.1.2. Launch the Docker image build
+
 ```
 make image
 ```
