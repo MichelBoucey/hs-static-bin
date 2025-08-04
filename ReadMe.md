@@ -6,6 +6,17 @@ Get easily Haskell static binaries through an adhoc Docker container without nev
 
 ## 2. Usage
 
+```
+Usage:
+
+   image         Build hs-static-bin Docker image
+   binary        Build static binary (needs sudo root)
+   clean         Remove static-bin/ where the binary artefact is delivered
+   clean-all     Remove also hs-static-bin Docker image
+
+Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)
+```
+
 ### 2.1. Building hs-static-bin Docker image
 
 ```
