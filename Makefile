@@ -13,11 +13,11 @@ help:
 image:
 	docker buildx build -t hs-static-bin ./docker/
 
-binary:
-	@rm -rf ${CURDIR}/static-bin/ && mkdir ${CURDIR}/static-bin
+binary: clean
+	@mkdir ${CURDIR}/static-bin
 	docker run \
-	--mount type=bind,src=$(CURDIR)/static-bin/,dst=/tmp/bin/ \
 	--mount type=bind,src=$(CURDIR)/script/,dst=/tmp/script/ hs-static-bin \
+	--mount type=bind,src=$(CURDIR)/static-bin/,dst=/tmp/bin/ \
 	/bin/ash /tmp/script/build.sh
 	sudo chown ${CURUSER}:${CURUSER} ${CURDIR}/static-bin/*
 	strip --strip-all ${CURDIR}/static-bin/*
