@@ -47,7 +47,7 @@ Once the build process is finished, one can find the Haskell stripped binary art
 
 - Just clone this repo
 - Run `make image`
-- Run `make binary` to get a static binary of `ip6addr`, [https://github.com/MichelBoucey/ip6addr](one of my Haskell project), in `static-bin/` folder.
+- Run `make binary` to get a static binary of `ip6addr`, [one of my Haskell project](https://github.com/MichelBoucey/ip6addr), in `static-bin/` folder.
 - Run `ldd static-bin/ip6addr` to check that this binary artefact has no library dependencies.
 - Finally run `./static-bin/ip6addr --random` to check that the command is usable.
 
