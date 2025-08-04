@@ -7,6 +7,7 @@ help:
 	@echo "   binary        Build static binary (needs sudo root)"
 	@echo "   clean         Remove static-bin/ where the binary artefact is delivered"
 	@echo "   clean-all     Remove also hs-static-bin Docker image"
+	@echo "   help          Show this usage notice"
 	@echo
 	@echo "Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)"
 

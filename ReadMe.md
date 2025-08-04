@@ -9,12 +9,14 @@ It should be usable in a CI/CD process (not yet tested).
 ## 2. Usage
 
 ```
+[user@box ~] $ make
 Usage:
 
    image         Build hs-static-bin Docker image
    binary        Build static binary (needs sudo root)
    clean         Remove static-bin/ where the binary artefact is delivered
    clean-all     Remove also hs-static-bin Docker image
+   help          Show this usage notice
 
 Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)
 ```
