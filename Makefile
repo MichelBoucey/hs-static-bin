@@ -1,24 +1,31 @@
+CURUSER=$(shell whoami)
 
 help:
 	@echo "Usage:"
 	@echo
-	@echo "   build         Build static binary"
-	@echo "   build-image   Build hs-static-bin Docker image"
-	@echo "   clean         Remove exited hs-static-bin containers from Docker"
-	@echo "   clean-all     Remove also static-bin/ where static binaries are copied"
+	@echo "   image         Build hs-static-bin Docker image"
+	@echo "   binary        Build static binary (needs sudo root)"
+	@echo "   clean         Remove static-bin/ where the binary artefact is delivered"
+	@echo "   clean-all     Remove also hs-static-bin Docker image"
 	@echo
+	@echo "(c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)"
 
-build:
-	@test -d static-bin || mkdir static-bin
-	docker run --mount type=bind,src=$(CURDIR)/static-bin/,dst=/tmp/bin/ -it hs-static-bin
+image:
+	docker buildx build -t hs-static-bin ./docker/
 
-build-image:
-	docker buildx build -t hs-static-bin ./docker
+binary:
+	@rm -rf ${CURDIR}/static-bin/ && mkdir ${CURDIR}/static-bin
+	docker run \
+	--mount type=bind,src=$(CURDIR)/static-bin/,dst=/tmp/bin/ \
+	--mount type=bind,src=$(CURDIR)/script/,dst=/tmp/script/ hs-static-bin \
+	/bin/ash /tmp/script/build.sh
+	sudo chown ${CURUSER}:${CURUSER} ${CURDIR}/static-bin/*
+	strip --strip-all ${CURDIR}/static-bin/*
 
-all: clean build-image build
+all: clean-all image binary
 
 clean:
-	docker rm $(docker container ls -a -q --filter ancestor=hs-static-bin --filter status=exited)
+	rm -rf $(CURDIR)/static-bin/
 
 clean-all: clean
-	rm -rf $(CURDIR)/static-bin/
+	docker rm hs-static-bin

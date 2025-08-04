@@ -10,8 +10,4 @@ RUN apk --no-cache add binutils-gold curl gcc g++ git gmp-dev ncurses-dev ncurse
     libffi-dev make xz tar perl zlib-dev zlib-static sudo libc6-compat gmp-static \
     && curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 
-ADD cabal-build.sh .
-
-RUN chmod 755 cabal-build.sh
-
-ENTRYPOINT ["/cabal-build.sh"]
+CMD ["mkdir","/tmp/script/"]
