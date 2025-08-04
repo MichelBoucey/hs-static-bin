@@ -2,7 +2,7 @@
 
 ## 1. Goal
 
-Get easily Haskell static binaries through an adhoc Docker container without never to have to login into it.
+Get easily Haskell static binaries through an adhoc Docker container without never to have to login into it. The Haskell binary artefact is delivered on the local host.
 
 ## 2. Usage
 
