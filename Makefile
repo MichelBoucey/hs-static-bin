@@ -1,4 +1,5 @@
-CURUSER=$(shell whoami)
+export CURUID:=$(shell id -u)
+export CURGID:=$(shell id -g)
 
 help:
 	@echo "Usage:"
@@ -12,15 +13,17 @@ help:
 	@echo "Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)"
 
 image:
-	docker buildx build -t hs-static-bin ./docker/
+	docker buildx build \
+	--build-arg CURUID=$(CURUID) \
+	--build-arg CURGID=$(CURGID) \
+	-t hs-static-bin ./docker/
 
 binary: clean
 	@mkdir ${CURDIR}/static-bin
 	docker run \
-	--mount type=bind,src=$(CURDIR)/script/,dst=/tmp/script/ hs-static-bin \
+	--mount type=bind,src=$(CURDIR)/script/,dst=/tmp/script/ \
 	--mount type=bind,src=$(CURDIR)/static-bin/,dst=/tmp/bin/ \
-	/bin/ash /tmp/script/build.sh
-	sudo chown ${CURUSER}:${CURUSER} ${CURDIR}/static-bin/*
+	hs-static-bin /bin/ash /tmp/script/build.sh
 	strip --strip-all ${CURDIR}/static-bin/*
 
 all: clean-all image binary
