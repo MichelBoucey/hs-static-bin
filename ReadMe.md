@@ -2,7 +2,7 @@
 
 ## 1. Goal
 
-Get easily Haskell static binaries through an adhoc Docker container without never to have to login into it. The Haskell binary artefact is delivered on the local host.
+Get easily Haskell static binaries through an adhoc Docker container without never to have to login into it. The Haskell binary artefact is delivered on the local host with the right ownership.
 
 It should be usable in a CI/CD process (not yet tested).
 
@@ -27,8 +27,8 @@ Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)
 
 You have first to set the GHC and Cabal versions you need in `docker/Dockerfile` through two variables given by `GHCup`:
 
-- BOOTSTRAP_HASKELL_GHC_VERSION
-- BOOTSTRAP_HASKELL_CABAL_VERSION
+- `BOOTSTRAP_HASKELL_GHC_VERSION`
+- `BOOTSTRAP_HASKELL_CABAL_VERSION`
 
 #### 2.1.2. Launch the Docker image build
 
