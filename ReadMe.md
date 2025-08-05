@@ -13,7 +13,7 @@ It should be usable in a CI/CD process (not yet tested).
 Usage:
 
    image         Build hs-static-bin Docker image
-   binary        Build static binary (needs sudo root)
+   binary        Build static binary
    clean         Remove static-bin/ where the binary artefact is delivered
    clean-all     Remove also hs-static-bin Docker image
    help          Show this usage notice
@@ -45,8 +45,6 @@ You have to edit `script/build.sh`. You have at least to set `HASKELL_GIT_REPO` 
 _N.B._ : Between your tries to get a build success, you won't have to rebuild the `hs-static-bin` Docker image with `make image`, because the `build.sh` script is dynamically mounted during the running of a `hs-static-bin` container, so that it can be rewritten between tries.
 
 ### 2.3. Building the binary artefact
-
-_NB_ : You must have `sudo root` enabled
 
 ```
 make binary

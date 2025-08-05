@@ -5,7 +5,7 @@ help:
 	@echo "Usage:"
 	@echo
 	@echo "   image         Build hs-static-bin Docker image"
-	@echo "   binary        Build static binary (needs sudo root)"
+	@echo "   binary        Build static binary"
 	@echo "   clean         Remove static-bin/ where the binary artefact is delivered"
 	@echo "   clean-all     Remove also hs-static-bin Docker image"
 	@echo "   help          Show this usage notice"
