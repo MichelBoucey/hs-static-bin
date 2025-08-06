@@ -71,9 +71,16 @@ Once the build process is finished, one can find the Haskell stripped binary art
 
 _N.B._ : If needed, between your tries to get a build success, you can tweak and edit the `script/build.sh`. You won't have to rebuild the `hs-static-bin` Docker image with `make image`, because the `build.sh` script is dynamically mounted during the running of a `hs-static-bin` container, so that it can be rewritten between tries.
 
-## 3. How to test ?
+### 2.3. Creating an en vars file
 
-- Just clone this repo
+```
+[user@box ~] $ make show-env-vars > .env
+```
+
+## 3. How to test and check ?
+
+- Clone this repo
+- export `BOOTSTRAP_HASKELL_CABAL_VERSION` and `BOOTSTRAP_HASKELL_GHC_VERSION`
 - Run `make image`
 - Export `HASKELL_GIT_REPO_URL`
 - Run `make binary`
