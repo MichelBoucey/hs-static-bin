@@ -56,6 +56,8 @@ make binary
 
 Once the build process is finished, one can find the Haskell stripped binary artifact in `static-bin/` folder with the right ownership.
 
+_N.B._ : If needed, between your tries to get a build success, you can tweak and edit the `script/build.sh`. You won't have to rebuild the `hs-static-bin` Docker image with `make image`, because the `build.sh` script is dynamically mounted during the running of a `hs-static-bin` container, so that it can be rewritten between tries.
+
 ## 3. How to test ?
 
 - Just clone this repo
