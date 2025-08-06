@@ -12,11 +12,12 @@ It should be usable in a CI/CD process (not yet tested).
 [user@box ~] $ make
 Usage:
 
-   image       Build hs-static-bin Docker image
-   binary      Build an Haskell static binary
-   clean       Remove static-bin/ where Haskell binary artifacts are delivered
-   clean-all   Remove also hs-static-bin Docker image and containers
-   help        Show this usage notice
+   image          Build hs-static-bin Docker image
+   binary         Build an Haskell static binary
+   clean          Remove static-bin/ where Haskell binary artifacts are delivered
+   docker-clean   Remove hs-static-bin image and containers from Docker
+   clean-all      clean and docker-clean combined
+   help           Show this usage notice
 
 Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)
 ```
@@ -71,19 +72,25 @@ Once the build process is finished, one can find the Haskell stripped binary art
 
 _N.B._ : If needed, between your tries to get a build success, you can tweak and edit the `script/build.sh`. You won't have to rebuild the `hs-static-bin` Docker image with `make image`, because the `build.sh` script is dynamically mounted during the running of a `hs-static-bin` container, so that it can be rewritten between tries.
 
-### 2.3. Creating an env vars file
+## Cleanup Docker from hs-static-bin image and containers
+
+```
+[user@box hs-static-bin] $ make docker-clean
+```
+
+## 2.3. Creating an env vars file
 
 ```
 [user@box ~] $ make show-env-vars > .env
 ```
 
-## 3. How to test and check ?
+## 3. In brief, how to test and check hs-static-bin ?
 
 - Clone this repo
-- export `BOOTSTRAP_HASKELL_CABAL_VERSION` and `BOOTSTRAP_HASKELL_GHC_VERSION`
+- Set and export `BOOTSTRAP_HASKELL_CABAL_VERSION` and `BOOTSTRAP_HASKELL_GHC_VERSION`
 - Run `make image`
-- Export `HASKELL_GIT_REPO_URL`
+- Set and export `HASKELL_GIT_REPO_URL`
 - Run `make binary`
-- Run `ldd` against the just-built binary artifact to check and to ensure that it has no library dependencies.
+- Run `ldd` against the just-built binary artifact delivered in `static-bin/` to check and to ensure that it has no library dependencies.
 - Run the just-built binary artifact to check that the command is usable.
 
