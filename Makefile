@@ -19,12 +19,12 @@ image:
 	-t hs-static-bin ./docker/
 
 binary: clean
-	@mkdir ${CURDIR}/static-bin
+	@mkdir $(CURDIR)/static-bin
 	docker run \
 	--mount type=bind,src=$(CURDIR)/script/,dst=/tmp/script/ \
 	--mount type=bind,src=$(CURDIR)/static-bin/,dst=/tmp/bin/ \
 	hs-static-bin /bin/ash /tmp/script/build.sh
-	strip --strip-all ${CURDIR}/static-bin/*
+	strip --strip-all $(CURDIR)/static-bin/*
 
 all: clean-all image binary
 
@@ -32,4 +32,5 @@ clean:
 	rm -rf $(CURDIR)/static-bin/
 
 clean-all: clean
-	docker rm hs-static-bin
+	echo $(shell docker ps -a -q -f ancestor=hs-static-bin) | xargs -r echo
+	echo $(shell docker images | grep hs-static-bin | awk '{print $$3}' | uniq) | xargs -r echo
