@@ -9,13 +9,24 @@ help:
 	@echo
 	@echo "Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)"
 
+show-image-env-vars:
+	@echo "BOOTSTRAP_HASKELL_CABAL_VERSION=$(BOOTSTRAP_HASKELL_CABAL_VERSION)"
+	@echo "BOOTSTRAP_HASKELL_GHC_VERSION=$(BOOTSTRAP_HASKELL_GHC_VERSION)"
+
 export CURUID:=$(shell id -u)
 export CURGID:=$(shell id -g)
+export BOOTSTRAP_HASKELL_GHC_VERSION
+export BOOTSTRAP_HASKELL_CABAL_VERSION
 image:
 	docker buildx build \
 	--build-arg CURUID=$(CURUID) \
 	--build-arg CURGID=$(CURGID) \
+	--build-arg BOOTSTRAP_HASKELL_GHC_VERSION=$(BOOTSTRAP_HASKELL_GHC_VERSION) \
+	--build-arg BOOTSTRAP_HASKELL_CABAL_VERSION=$(BOOTSTRAP_HASKELL_CABAL_VERSION) \
 	-t hs-static-bin ./docker/
+
+show-binary-env-vars:
+	@echo "HASKELL_GIT_REPO_URL=$(HASKELL_GIT_REPO_URL)"
 
 export HASKELL_GIT_REPO_URL
 binary:
@@ -31,6 +42,8 @@ binary:
 	--mount type=bind,src=$(CURDIR)/static-bin/,dst=/tmp/bin/ \
 	hs-static-bin /bin/ash /tmp/script/build.sh $(HASKELL_GIT_REPO_URL)
 	strip --strip-all $(CURDIR)/static-bin/*
+
+show-env-vars: show-image-env-vars show-binary-env-vars
 
 all: clean-all image binary
 

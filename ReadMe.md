@@ -25,15 +25,28 @@ Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)
 
 #### 2.1.1. Set GHC and Cabal versions
 
-You have first to set the `GHC` and `Cabal` versions you need in `docker/Dockerfile` through two variables given by `GHCup`:
+You have to set and export the `GHC` and `Cabal` versions you want to use through two variables given by `GHCup`:
 
 - `BOOTSTRAP_HASKELL_GHC_VERSION`
 - `BOOTSTRAP_HASKELL_CABAL_VERSION`
 
+```
+[user@box ~] $ export BOOTSTRAP_HASKELL_GHC_VERSION=9.8.2
+[user@box ~] $ export BOOTSTRAP_HASKELL_CABAL_VERSION=3.16.0.0
+```
+
+You can check them:
+
+```
+[user@box ~] $ make show-image-env-vars
+BOOTSTRAP_HASKELL_CABAL_VERSION=3.16.0.0
+BOOTSTRAP_HASKELL_GHC_VERSION=9.8.2
+```
+
 #### 2.1.2. Launch the Docker image build
 
 ```
-make image
+[user@box hs-static-bin] $ make image
 ```
 
 _N.B._ : 1°/ A single build is normally enough, 2°/ You will never have to login into it.
@@ -51,7 +64,7 @@ You have to set and export `HASKELL_GIT_REPO_URL` env var to an Haskell Git repo
 #### 2.2.2. Launch the Haskell binary artifact build
 
 ```
-make binary
+[user@box hs-static-bin] $ make binary
 ```
 
 Once the build process is finished, one can find the Haskell stripped binary artifact in `static-bin/` folder with the right ownership.
@@ -64,6 +77,6 @@ _N.B._ : If needed, between your tries to get a build success, you can tweak and
 - Run `make image`
 - Export `HASKELL_GIT_REPO_URL`
 - Run `make binary`
-- Run `ldd` against the just-built binary artifact to check that it has no library dependencies.
-- Finally run the just-built binary artifact to check that the command is usable.
+- Run `ldd` against the just-built binary artifact to check and to ensure that it has no library dependencies.
+- Run the just-built binary artifact to check that the command is usable.
 
