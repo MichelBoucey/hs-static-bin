@@ -35,7 +35,7 @@ You have to set and export the `GHC` and `Cabal` versions you want to use throug
 [user@box ~] $ export BOOTSTRAP_HASKELL_CABAL_VERSION=3.16.0.0
 ```
 
-You can check them:
+You can check them with:
 
 ```
 [user@box ~] $ make show-image-env-vars
@@ -71,7 +71,7 @@ Once the build process is finished, one can find the Haskell stripped binary art
 
 _N.B._ : If needed, between your tries to get a build success, you can tweak and edit the `script/build.sh`. You won't have to rebuild the `hs-static-bin` Docker image with `make image`, because the `build.sh` script is dynamically mounted during the running of a `hs-static-bin` container, so that it can be rewritten between tries.
 
-### 2.3. Creating an en vars file
+### 2.3. Creating an env vars file
 
 ```
 [user@box ~] $ make show-env-vars > .env
