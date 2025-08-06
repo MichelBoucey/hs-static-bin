@@ -2,7 +2,7 @@ help:
 	@echo "Usage:"
 	@echo
 	@echo "   image       Build hs-static-bin Docker image"
-	@echo "   binary      Build Haskell static binary"
+	@echo "   binary      Build an Haskell static binary"
 	@echo "   clean       Remove static-bin/ where Haskell binary artifacts are delivered"
 	@echo "   clean-all   Remove also hs-static-bin Docker image and containers"
 	@echo "   help        Show this usage notice"
@@ -23,7 +23,7 @@ binary:
 	    echo "You have to set env var HASKELL_GIT_REPO_URL"; \
 	    exit 1; \
 	else \
-	    echo "OK... trying to build Haskell static binary artifact from $(HASKELL_GIT_REPO_URL)"; \
+	    echo "OK... trying to build an Haskell static binary artifact from $(HASKELL_GIT_REPO_URL)"; \
 	fi
 	@test -d $(CURDIR)/static-bin || mkdir $(CURDIR)/static-bin
 	docker run \

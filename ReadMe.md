@@ -13,7 +13,7 @@ It should be usable in a CI/CD process (not yet tested).
 Usage:
 
    image       Build hs-static-bin Docker image
-   binary      Build Haskell static binary
+   binary      Build an Haskell static binary
    clean       Remove static-bin/ where Haskell binary artifacts are delivered
    clean-all   Remove also hs-static-bin Docker image and containers
    help        Show this usage notice
