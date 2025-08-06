@@ -1,11 +1,12 @@
 help:
 	@echo "Usage:"
 	@echo
-	@echo "   image       Build hs-static-bin Docker image"
-	@echo "   binary      Build an Haskell static binary"
-	@echo "   clean       Remove static-bin/ where Haskell binary artifacts are delivered"
-	@echo "   clean-all   Remove also hs-static-bin Docker image and containers"
-	@echo "   help        Show this usage notice"
+	@echo "   image          Build hs-static-bin Docker image"
+	@echo "   binary         Build an Haskell static binary"
+	@echo "   clean          Remove static-bin/ where Haskell binary artifacts are delivered"
+	@echo "   docker-clean   Remove hs-static-bin image and containers from Docker"
+	@echo "   clean-all      clean and docker-clean combined"
+	@echo "   help           Show this usage notice"
 	@echo
 	@echo "Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)"
 
@@ -45,11 +46,11 @@ binary:
 
 show-env-vars: show-image-env-vars show-binary-env-vars
 
-all: clean-all image binary
-
 clean:
 	rm -rf $(CURDIR)/static-bin/
 
-clean-all: clean
+docker-clean:
 	echo $(shell docker ps -a -q -f ancestor=hs-static-bin) | xargs -r docker rm -f
 	echo $(shell docker images | grep hs-static-bin | awk '{print $$3}' | uniq) | xargs -r docker rmi
+
+clean-all: clean docker-clean
