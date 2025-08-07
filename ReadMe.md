@@ -2,7 +2,7 @@
 
 ## 1. Goal
 
-The goal of `hs-static-bin` is to get easily Haskell static binaries through an adhoc Docker container without never to have to login into it. The Haskell binary artifact is delivered on the local host with the right ownership.
+The goal of `hs-static-bin` is to build easily Haskell static binaries through an adhoc Docker container, without never to have to login into it. The Haskell binary artifact is delivered on the local host with the right ownership.
 
 Should be usable in a CI/CD process (not yet tested).
 
@@ -32,7 +32,7 @@ You have to set and export those env vars before running commands:
 
 - `HASKELL_GHC_VERSION`: the `GHC` version to embed into the Docker image
 - `HASKELL_CABAL_VERSION`: the `Cabal` version to embed into the Docker image
-- `HASKELL_GIT_REPO_URL`: an Haskell Git repo capable of building executable(s) just by running a `cabal install`-like command inside it
+- `HASKELL_GIT_REPO_URL`: the URL of an Haskell Git repo capable of building executable(s) just by running a `cabal install`-like command inside it
 
 ```
 [user@box ~] $ export HASKELL_CABAL_VERSION=3.16.0.0
