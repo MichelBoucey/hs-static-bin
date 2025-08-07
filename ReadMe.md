@@ -4,7 +4,7 @@
 
 The goal of `hs-static-bin` is to get easily Haskell static binaries through an adhoc Docker container without never to have to login into it. The Haskell binary artifact is delivered on the local host with the right ownership.
 
-It should be usable in a CI/CD process (not yet tested).
+Should be usable in a CI/CD process (not yet tested).
 
 ## 2. Usage
 
@@ -13,58 +13,68 @@ It should be usable in a CI/CD process (not yet tested).
 Usage:
 
    image            Build hs-static-bin Docker image
+   show-env-vars    Show hs-static-bin environment variables settings
+   envrc            Create a .envrc for hs-static-bin environment variables
    binary           Build an Haskell static binary
    clean            Remove static-bin/ where Haskell binary artifacts are delivered
    docker-clean     Remove hs-static-bin image and containers from Docker
    clean-all        Clean and docker-clean combined
-   show-env-vars    Show hs-static-bin environment variables settings
-   envrc            Create a .envrc for hs-static-bin environment variables
    help             Show this usage notice
 
 Copyright (c) 2025 Michel Boucey (github.com/MichelBoucey/hs-static-bin)
 ```
 
-### 2.1. Building the hs-static-bin Docker image
+## 3. The hs-static-bin environment variables
 
-#### 2.1.1. Set GHC and Cabal versions
+### 3.1. Set the hs-static-bin environment variables
 
-You have to set and export the `GHC` and `Cabal` versions you want to use through two variables given by `GHCup`:
+You have to set and export those env vars before running commands:
 
-- `BOOTSTRAP_HASKELL_GHC_VERSION`
-- `BOOTSTRAP_HASKELL_CABAL_VERSION`
-
-```
-[user@box ~] $ export BOOTSTRAP_HASKELL_GHC_VERSION=9.8.2
-[user@box ~] $ export BOOTSTRAP_HASKELL_CABAL_VERSION=3.16.0.0
-```
-
-You can check them with:
+- `HASKELL_GHC_VERSION`: the `GHC` version to embed into the Docker image
+- `HASKELL_CABAL_VERSION`: the `Cabal` to embed into the Docker image
+- `HASKELL_GIT_REPO_URL`: an Haskell Git repo capable of building executable(s), by running a `cabal install`-like command inside it
 
 ```
-[user@box hs-static-bin] $ make show-image-env-vars
-BOOTSTRAP_HASKELL_CABAL_VERSION=3.16.0.0
-BOOTSTRAP_HASKELL_GHC_VERSION=9.8.2
+[user@box ~] $ export HASKELL_GHC_VERSION=9.8.2
+[user@box ~] $ export HASKELL_CABAL_VERSION=3.16.0.0
+[user@box ~] $ export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 ```
 
-#### 2.1.2. Launch the Docker image build
+### 3.2. Check the hs-static-bin environment variables
+
+You can check the environment:
+
+```
+[user@box hs-static-bin] $ make show-env-vars
+HASKELL_CABAL_VERSION=3.16.0.0
+HASKELL_GHC_VERSION=9.8.2
+HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
+```
+
+### 3.3. Create a ht-static-bin .envrc file
+
+Based upon the `hs-static-bin` env vars currently exported, on can create a corresponding `.envrc` file.
+
+```
+[user@box ~] $ make envrc
+[user@box ~] $ cat .envrc
+export HASKELL_CABAL_VERSION=3.16.0.0
+export HASKELL_GHC_VERSION=9.8.2
+export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
+```
+
+## 4. Launch the Docker image build
 
 ```
 [user@box hs-static-bin] $ make image
 ```
 
-_N.B._ : 1°/ A single build is normally enough, until you have to change `GHC` or `Cabal` version, 2°/ You will never have to login into it.
+_N.B._ :
+- `hs-static-bin` Docker images are tagged with the GHC version embedded, like `hs-static-bin:ghc-9.8.2`
+- A single build is normally enough, until you have to change `GHC` or `Cabal` version
+- You shouldn't have to login into `hs-static-bin` containers.
 
-### 2.2. Building the Haskell binary artifact
-
-#### 2.2.1. Set the Haskell Git repo
-
-You have to set and export `HASKELL_GIT_REPO_URL` env var to an Haskell Git repo capable of building an executable just by running a `cabal install` command inside it.
-
-```
-[user@box ~] $ export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
-```
-
-#### 2.2.2. Launch the Haskell binary artifact build
+## 5. Launch the Haskell binary artifact build
 
 ```
 [user@box hs-static-bin] $ make binary
@@ -72,32 +82,24 @@ You have to set and export `HASKELL_GIT_REPO_URL` env var to an Haskell Git repo
 
 Once the build process is finished, one can find the Haskell stripped binary artifact in `static-bin/` folder with the right ownership.
 
+```
+[user@box hs-static-bin] $ ls static-bin/
+ghcid
+```
+
 _N.B._ : If needed, between your tries to get a build success, you can tweak and edit the `script/build.sh`. You won't have to rebuild the `hs-static-bin` Docker image with `make image`, because the `build.sh` script is dynamically mounted during the running of a `hs-static-bin` container, so that it can be rewritten between tries.
 
-## 3. Cleanup Docker from hs-static-bin image and containers
+## 6. Cleanup Docker from hs-static-bin image and containers
 
 ```
 [user@box hs-static-bin] $ make docker-clean
 ```
 
-## 4. Creating a .envrc file
-
-Based upon the `hs-static-bin` env vars currently exported, create the corresponding `.envrc` file.
-
-```
-[user@box ~] $ make envrc
-[user@box ~] $ cat .envrc
-export BOOTSTRAP_HASKELL_CABAL_VERSION=3.16.0.0
-export BOOTSTRAP_HASKELL_GHC_VERSION=9.8.2
-export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
-```
-
-## 5. In brief, how to test and check hs-static-bin ?
+## 7. In brief, how to test and check hs-static-bin ?
 
 - Clone this repo
-- Set and export `BOOTSTRAP_HASKELL_CABAL_VERSION` and `BOOTSTRAP_HASKELL_GHC_VERSION`
+- Set properly and export `HASKELL_CABAL_VERSION` and `HASKELL_GHC_VERSION` and `HASKELL_GIT_REPO_URL`
 - Run `make image`
-- Set and export `HASKELL_GIT_REPO_URL`
 - Run `make binary`
 - Run `ldd` against the just-built binary artifact delivered in `static-bin/` to check and ensure that it has no library dependencies.
 - Run the just-built binary artifact to check that the command is usable.
