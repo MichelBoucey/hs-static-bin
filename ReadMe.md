@@ -4,7 +4,7 @@
 
 The goal of `hs-static-bin` is to get easily Haskell static binaries through an adhoc Docker container without never to have to login into it. The Haskell binary artifact is delivered on the local host with the right ownership.
 
-It should be usable in a CI/CD process (not yet tested).
+Should be usable in a CI/CD process (not yet tested).
 
 ## 2. Usage
 
@@ -23,14 +23,16 @@ Usage:
 
 Copyright (c) 2025 Michel Boucey (github.com/MichelBoucey/hs-static-bin)
 ```
+
 ## 3. The hs-static-bin environment variables
 
 ### 3.1. Set the hs-static-bin environment variables
-You have to set and export the `GHC` and `Cabal` versions you want to use through two variables given by `GHCup`:
+
+You have to set and export those env vars before running commands:
 
 - `HASKELL_GHC_VERSION`: the `GHC` version to embed into the Docker image
 - `HASKELL_CABAL_VERSION`: the `Cabal` to embed into the Docker image
-- `HASKELL_GIT_REPO_URL`: an Haskell Git repo capable of building executable(s) just by running a `cabal install`-like command inside it
+- `HASKELL_GIT_REPO_URL`: an Haskell Git repo capable of building executable(s), by running a `cabal install`-like command inside it
 
 ```
 [user@box ~] $ export HASKELL_GHC_VERSION=9.8.2
@@ -67,7 +69,10 @@ export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 [user@box hs-static-bin] $ make image
 ```
 
-_N.B._ : 1°/ A single build is normally enough, until you have to change `GHC` or `Cabal` version, 2°/ You will never have to login into it.
+_N.B._ :
+- `hs-static-bin` Docker images are tagged with the GHC version embedded, like `hs-static-bin:ghc-9.8.2`
+- A single build is normally enough, until you have to change `GHC` or `Cabal` version
+- You shouldn't have to login into `hs-static-bin` containers.
 
 ## 5. Launch the Haskell binary artifact build
 
@@ -88,9 +93,8 @@ _N.B._ : If needed, between your tries to get a build success, you can tweak and
 ## 7. In brief, how to test and check hs-static-bin ?
 
 - Clone this repo
-- Set and export `HASKELL_CABAL_VERSION` and `HASKELL_GHC_VERSION`
+- Set properly and export `HASKELL_CABAL_VERSION` and `HASKELL_GHC_VERSION` and `HASKELL_GIT_REPO_URL`
 - Run `make image`
-- Set and export `HASKELL_GIT_REPO_URL`
 - Run `make binary`
 - Run `ldd` against the just-built binary artifact delivered in `static-bin/` to check and ensure that it has no library dependencies.
 - Run the just-built binary artifact to check that the command is usable.
