@@ -31,8 +31,8 @@ Copyright (c) 2025 Michel Boucey (github.com/MichelBoucey/hs-static-bin)
 You have to set and export those env vars before running commands:
 
 - `HASKELL_GHC_VERSION`: the `GHC` version to embed into the Docker image
-- `HASKELL_CABAL_VERSION`: the `Cabal` to embed into the Docker image
-- `HASKELL_GIT_REPO_URL`: an Haskell Git repo capable of building executable(s), by running a `cabal install`-like command inside it
+- `HASKELL_CABAL_VERSION`: the `Cabal` version to embed into the Docker image
+- `HASKELL_GIT_REPO_URL`: an Haskell Git repo capable of building executable(s) just by running a `cabal install`-like command inside it
 
 ```
 [user@box ~] $ export HASKELL_CABAL_VERSION=3.16.0.0
