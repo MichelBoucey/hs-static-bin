@@ -1,12 +1,14 @@
 help:
 	@echo "Usage:"
 	@echo
-	@echo "   image          Build hs-static-bin Docker image"
-	@echo "   binary         Build an Haskell static binary"
-	@echo "   clean          Remove static-bin/ where Haskell binary artifacts are delivered"
-	@echo "   docker-clean   Remove hs-static-bin image and containers from Docker"
-	@echo "   clean-all      clean and docker-clean combined"
-	@echo "   help           Show this usage notice"
+	@echo "   image            Build hs-static-bin Docker image"
+	@echo "   binary           Build an Haskell static binary"
+	@echo "   clean            Remove static-bin/ where Haskell binary artifacts are delivered"
+	@echo "   docker-clean     Remove hs-static-bin image and containers from Docker"
+	@echo "   clean-all        Clean and docker-clean combined"
+	@echo "   show-env-vars    Show hs-static-bin environment variables settings"
+	@echo "   envrc            Create a .envrc for hs-static-bin environment variables"
+	@echo "   help             Show this usage notice"
 	@echo
 	@echo "Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)"
 
@@ -45,6 +47,9 @@ binary:
 	strip --strip-all $(CURDIR)/static-bin/*
 
 show-env-vars: show-image-env-vars show-binary-env-vars
+
+envrc:
+	@make --no-print-directory show-env-vars | sed 's/^/export /' > .envrc
 
 clean:
 	rm -rf $(CURDIR)/static-bin/

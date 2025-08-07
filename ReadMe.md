@@ -12,12 +12,14 @@ It should be usable in a CI/CD process (not yet tested).
 [user@box ~] $ make
 Usage:
 
-   image          Build hs-static-bin Docker image
-   binary         Build an Haskell static binary
-   clean          Remove static-bin/ where Haskell binary artifacts are delivered
-   docker-clean   Remove hs-static-bin image and containers from Docker
-   clean-all      clean and docker-clean combined
-   help           Show this usage notice
+   image            Build hs-static-bin Docker image
+   binary           Build an Haskell static binary
+   clean            Remove static-bin/ where Haskell binary artifacts are delivered
+   docker-clean     Remove hs-static-bin image and containers from Docker
+   clean-all        Clean and docker-clean combined
+   show-env-vars    Show hs-static-bin environment variables settings
+   envrc            Create a .envrc for hs-static-bin environment variables
+   help             Show this usage notice
 
 Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)
 ```
@@ -39,7 +41,7 @@ You have to set and export the `GHC` and `Cabal` versions you want to use throug
 You can check them with:
 
 ```
-[user@box ~] $ make show-image-env-vars
+[user@box hs-static-bin] $ make show-image-env-vars
 BOOTSTRAP_HASKELL_CABAL_VERSION=3.16.0.0
 BOOTSTRAP_HASKELL_GHC_VERSION=9.8.2
 ```
@@ -50,7 +52,7 @@ BOOTSTRAP_HASKELL_GHC_VERSION=9.8.2
 [user@box hs-static-bin] $ make image
 ```
 
-_N.B._ : 1°/ A single build is normally enough, 2°/ You will never have to login into it.
+_N.B._ : 1°/ A single build is normally enough, until you have to change `GHC` or `Cabal` version, 2°/ You will never have to login into it.
 
 ### 2.2. Building the Haskell binary artifact
 
@@ -78,10 +80,16 @@ _N.B._ : If needed, between your tries to get a build success, you can tweak and
 [user@box hs-static-bin] $ make docker-clean
 ```
 
-## 4. Creating an env vars file
+## 4. Creating a .envrc file
+
+Based upon the `hs-static-bin` env vars currently exported, create the corresponding `.envrc` file.
 
 ```
-[user@box ~] $ make show-env-vars > .env
+[user@box ~] $ make envrc
+[user@box ~] $ cat .envrc
+export BOOTSTRAP_HASKELL_CABAL_VERSION=3.16.0.0
+export BOOTSTRAP_HASKELL_GHC_VERSION=9.8.2
+export HASKELL_GIT_REPO_URL=https://github.com/MichelBoucey/ip6addr
 ```
 
 ## 5. In brief, how to test and check hs-static-bin ?
@@ -91,6 +99,6 @@ _N.B._ : If needed, between your tries to get a build success, you can tweak and
 - Run `make image`
 - Set and export `HASKELL_GIT_REPO_URL`
 - Run `make binary`
-- Run `ldd` against the just-built binary artifact delivered in `static-bin/` to check and to ensure that it has no library dependencies.
+- Run `ldd` against the just-built binary artifact delivered in `static-bin/` to check and ensure that it has no library dependencies.
 - Run the just-built binary artifact to check that the command is usable.
 
