@@ -10,7 +10,7 @@ help:
 	@echo "   envrc            Create a .envrc for hs-static-bin environment variables"
 	@echo "   help             Show this usage notice"
 	@echo
-	@echo "Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)"
+	@echo "Copyright (c) 2025 Michel Boucey (github.com/MichelBoucey/hs-static-bin)"
 
 show-image-env-vars:
 	@echo "BOOTSTRAP_HASKELL_CABAL_VERSION=$(BOOTSTRAP_HASKELL_CABAL_VERSION)"
