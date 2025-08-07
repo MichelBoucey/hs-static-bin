@@ -35,14 +35,14 @@ You have to set and export those env vars before running commands:
 - `HASKELL_GIT_REPO_URL`: an Haskell Git repo capable of building executable(s), by running a `cabal install`-like command inside it
 
 ```
-[user@box ~] $ export HASKELL_GHC_VERSION=9.8.2
 [user@box ~] $ export HASKELL_CABAL_VERSION=3.16.0.0
+[user@box ~] $ export HASKELL_GHC_VERSION=9.8.2
 [user@box ~] $ export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 ```
 
 ### 3.2. Check the hs-static-bin environment variables
 
-You can check the environment:
+You can check the `hs-static-bin` environment:
 
 ```
 [user@box hs-static-bin] $ make show-env-vars
@@ -51,13 +51,13 @@ HASKELL_GHC_VERSION=9.8.2
 HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 ```
 
-### 3.3. Create a ht-static-bin .envrc file
+### 3.3. Create a hs-static-bin .envrc file
 
 Based upon the `hs-static-bin` env vars currently exported, on can create a corresponding `.envrc` file.
 
 ```
-[user@box ~] $ make envrc
-[user@box ~] $ cat .envrc
+[user@box hs-static-bin] $ make envrc
+[user@box hs-static-bin] $ cat .envrc
 export HASKELL_CABAL_VERSION=3.16.0.0
 export HASKELL_GHC_VERSION=9.8.2
 export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
@@ -98,7 +98,7 @@ _N.B._ : If needed, between your tries to get a build success, you can tweak and
 ## 7. In brief, how to test and check hs-static-bin ?
 
 - Clone this repo
-- Set properly and export `HASKELL_CABAL_VERSION` and `HASKELL_GHC_VERSION` and `HASKELL_GIT_REPO_URL`
+- Set properly and export `HASKELL_CABAL_VERSION`, `HASKELL_GHC_VERSION` and `HASKELL_GIT_REPO_URL`
 - Run `make image`
 - Run `make binary`
 - Run `ldd` against the just-built binary artifact delivered in `static-bin/` to check and ensure that it has no library dependencies.
