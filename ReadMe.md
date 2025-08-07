@@ -21,7 +21,7 @@ Usage:
    envrc            Create a .envrc for hs-static-bin environment variables
    help             Show this usage notice
 
-Copyright (c) 2025 Michel Boucey (https://github.com/MichelBoucey/hs-static-bin)
+Copyright (c) 2025 Michel Boucey (github.com/MichelBoucey/hs-static-bin)
 ```
 
 ### 2.1. Building the hs-static-bin Docker image
@@ -61,7 +61,7 @@ _N.B._ : 1°/ A single build is normally enough, until you have to change `GHC` 
 You have to set and export `HASKELL_GIT_REPO_URL` env var to an Haskell Git repo capable of building an executable just by running a `cabal install` command inside it.
 
 ```
-[user@box ~] $ export HASKELL_GIT_REPO_URL=https://github.com/MichelBoucey/ip6addr
+[user@box ~] $ export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 ```
 
 #### 2.2.2. Launch the Haskell binary artifact build
@@ -89,7 +89,7 @@ Based upon the `hs-static-bin` env vars currently exported, create the correspon
 [user@box ~] $ cat .envrc
 export BOOTSTRAP_HASKELL_CABAL_VERSION=3.16.0.0
 export BOOTSTRAP_HASKELL_GHC_VERSION=9.8.2
-export HASKELL_GIT_REPO_URL=https://github.com/MichelBoucey/ip6addr
+export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 ```
 
 ## 5. In brief, how to test and check hs-static-bin ?
