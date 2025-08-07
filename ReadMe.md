@@ -13,12 +13,12 @@ Should be usable in a CI/CD process (not yet tested).
 Usage:
 
    image            Build hs-static-bin Docker image
+   show-env-vars    Show hs-static-bin environment variables settings
+   envrc            Create a .envrc for hs-static-bin environment variables
    binary           Build an Haskell static binary
    clean            Remove static-bin/ where Haskell binary artifacts are delivered
    docker-clean     Remove hs-static-bin image and containers from Docker
    clean-all        Clean and docker-clean combined
-   show-env-vars    Show hs-static-bin environment variables settings
-   envrc            Create a .envrc for hs-static-bin environment variables
    help             Show this usage notice
 
 Copyright (c) 2025 Michel Boucey (github.com/MichelBoucey/hs-static-bin)

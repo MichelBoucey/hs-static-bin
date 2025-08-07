@@ -9,8 +9,8 @@ help:
 	@echo "   show-env-vars    Show hs-static-bin environment variables settings"
 	@echo "   envrc            Create a .envrc for hs-static-bin environment variables"
 	@echo "   binary           Build an Haskell static binary"
-	@echo "   docker-clean     Remove hs-static-bin image and containers from Docker"
 	@echo "   clean            Remove static-bin/ where Haskell binary artifacts are delivered"
+	@echo "   docker-clean     Remove hs-static-bin image and containers from Docker"
 	@echo "   clean-all        Clean and docker-clean combined"
 	@echo "   help             Show this usage notice"
 	@echo
