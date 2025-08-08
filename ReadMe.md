@@ -95,6 +95,8 @@ _N.B._ : If needed, between your tries to get a build success, you can tweak and
 [user@box hs-static-bin] $ make docker-clean
 ```
 
+_N.B._: Cleans only objects with the current GHC version tag.
+
 ## 7. In brief, how to test and check hs-static-bin ?
 
 - Clone this repo
