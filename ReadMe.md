@@ -40,6 +40,8 @@ You have to set and export those env vars before running commands:
 [user@box ~] $ export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 ```
 
+_N.B._: `GHC` and `Cabal` versions are those supported by `GHCup` at build time.
+
 ### 3.2. Check the hs-static-bin environment variables
 
 You can check the `hs-static-bin` environment:
@@ -72,7 +74,7 @@ export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 _N.B._ :
 - `hs-static-bin` Docker images are tagged with the GHC version embedded, like `hs-static-bin:ghc-9.8.2`
 - A single build is normally enough, until you have to change `GHC` or `Cabal` version
-- You shouldn't have to login into `hs-static-bin` containers.
+- You won't have to login into `hs-static-bin` containers.
 
 ## 5. Launch the Haskell binary artifact build
 
