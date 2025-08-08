@@ -30,11 +30,11 @@ show-env-vars:
 	@echo "HASKELL_GIT_REPO_URL=$(HASKELL_GIT_REPO_URL)"
 
 binary:
-	@if [ -z "$$HASKELL_GIT_REPO_URL" ]; then \
-	    echo "You have to set env var HASKELL_GIT_REPO_URL"; \
-	    exit 1; \
+	@if [ -n "$$HASKELL_GHC_VERSION" ] && [ -n "$$HASKELL_GIT_REPO_URL" ]; then \
+	    echo "OK... trying to build Haskell static binary artifacts at $(HASKELL_GIT_REPO_URL)"; \
 	else \
-	    echo "OK... trying to build an Haskell static binary artifact from $(HASKELL_GIT_REPO_URL)"; \
+	    echo "You have to set env vars HASKELL_GHC_VERSION and HASKELL_GIT_REPO_URL"; \
+	    exit 1; \
 	fi
 	@test -d $(CURDIR)/static-bin || mkdir $(CURDIR)/static-bin
 	docker run \
