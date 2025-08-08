@@ -42,6 +42,7 @@ binary:
 	--mount type=bind,src=$(CURDIR)/static-bin/,dst=/tmp/bin/ \
 	hs-static-bin:ghc-$(HASKELL_GHC_VERSION) /bin/ash /tmp/script/build.sh $(HASKELL_GIT_REPO_URL)
 	strip --strip-all $(CURDIR)/static-bin/*
+	make --no-print-directory docker-clean-containers
 
 envrc:
 	@make --no-print-directory show-env-vars | sed 's/^/export /' > .envrc
@@ -49,8 +50,10 @@ envrc:
 clean:
 	rm -rf $(CURDIR)/static-bin/
 
-docker-clean:
-	echo $(shell docker ps -a -q -f ancestor=hs-static-bin:ghc-$$HASKELL_GHC_VERSION) | xargs -r docker rm -f
-	echo $(shell docker images | grep -P hs-static-bin\\s*ghc-$$HASKELL_GHC_VERSION | awk '{print $$3}' | uniq) | xargs -r docker rmi
+docker-clean-containers:
+	@echo $(shell docker ps -a -q -f ancestor=hs-static-bin:ghc-$$HASKELL_GHC_VERSION -f status=exited) | xargs -r docker rm -f
+
+docker-clean: docker-clean-containers
+	@echo $(shell docker images | grep -P hs-static-bin\\s*ghc-$$HASKELL_GHC_VERSION | awk '{print $$3}' | uniq) | xargs -r docker rmi
 
 clean-all: clean docker-clean
