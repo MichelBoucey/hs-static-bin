@@ -72,8 +72,8 @@ export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 _N.B._ :
 - [Docker CLI plugin buildx](https://github.com/docker/buildx) is needed
 - `hs-static-bin` Docker images are tagged with the GHC version embedded, like `hs-static-bin:ghc-9.8.2`
-- A single build is normally enough, until you have to change `GHC` or `Cabal` version
-- You won't have to login into `hs-static-bin` containers.
+- A single build is enough for the intended usage
+- You won't need to login into `hs-static-bin` containers. They normally stop on `exit 0` and cleared just after from Docker
 
 ## 5. Launch the Haskell binary artifact build
 
