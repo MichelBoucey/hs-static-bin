@@ -53,7 +53,7 @@ HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 
 ### 3.3. Create a hs-static-bin .envrc file
 
-Based upon the `hs-static-bin` env vars currently exported, on can create a corresponding `.envrc` file.
+Based upon the `hs-static-bin` env vars currently exported, one can create a corresponding `.envrc` file.
 
 ```
 [user@box hs-static-bin] $ make envrc
