@@ -17,7 +17,7 @@ jobs:
 
     - name: Pull hs-static-bin Docker image
       run: |
-        docker pull docker pull ghcr.io/michelboucey/hs-static-bin:ghc-9.8.2
+        docker pull ghcr.io/michelboucey/hs-static-bin:ghc-9.8.2
         docker image tag ghcr.io/michelboucey/hs-static-bin:ghc-9.8.2 hs-static-bin:ghc-9.8.2
 
     - name: Build Haskell binary artifacts in the given Haskell Git repo 
