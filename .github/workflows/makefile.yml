@@ -6,7 +6,7 @@ on:
 env:
   HASKELL_CABAL_VERSION: '3.16.0.0'
   HASKELL_GHC_VERSION: '9.8.2'
-  HASKELL_GIT_REPO_URL: 'https://github.com/MichelBoucey/ip6addr'
+  HASKELL_GIT_REPO_URL: 'https://github.com/ndmitchell/ghcid'
     
 jobs:
   build:
