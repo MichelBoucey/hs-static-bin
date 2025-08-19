@@ -42,7 +42,7 @@ binary:
 	--mount type=bind,src=$(CURDIR)/script/,dst=/tmp/script/ \
 	--mount type=bind,src=$(CURDIR)/static-bin/,dst=/tmp/bin/ \
 	hs-static-bin:ghc-$(HASKELL_GHC_VERSION) \
-        /bin/ash /tmp/script/build.sh
+	/bin/ash /tmp/script/build.sh
 	strip --strip-all $(CURDIR)/static-bin/*
 	make --no-print-directory docker-clean-containers
 
