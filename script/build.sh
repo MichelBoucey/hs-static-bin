@@ -1,6 +1,7 @@
 cd /tmp
 
-git clone $1 cloned-repo
+echo "Cloning $HASKELL_GIT_REPO_URL"
+git clone $HASKELL_GIT_REPO_URL cloned-repo
 
 cd cloned-repo
 

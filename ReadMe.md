@@ -2,7 +2,7 @@
 
 ## 1. Goal
 
-The goal of `hs-static-bin` is to build easily Haskell static binaries through an adhoc Docker container, without never to have to login into it. The Haskell binary artifacts are delivered on the local host with the right ownership.
+The goal of `hs-static-bin` is to build easily `Haskell static binaries` through an adhoc Docker container, without never to have to login into it. The Haskell binary artifacts are delivered on the localhost with the right ownership. No localhost installation of Haskell build environment needed. Can run in a CI/CD workflow (tested with Github Actions).
 
 ## 2. Usage
 
@@ -53,7 +53,7 @@ HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 
 ### 3.3. Create a hs-static-bin .envrc file
 
-Based upon the `hs-static-bin` env vars currently exported, on can create a corresponding `.envrc` file.
+Based upon the `hs-static-bin` env vars currently exported, one can create a corresponding `.envrc` file.
 
 ```
 [user@box hs-static-bin] $ make envrc

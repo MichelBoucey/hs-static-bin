@@ -1,0 +1,22 @@
+name: hs-static-bin
+
+on:
+  push:
+
+env:
+  HASKELL_CABAL_VERSION: '3.16.0.0'
+  HASKELL_GHC_VERSION: '9.8.2'
+  HASKELL_GIT_REPO_URL: 'https://github.com/ndmitchell/ghcid'
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build hs-static-bin Docker image
+      run: make image
+
+    - name: Build Haskell binary artifacts in the given Haskell Git repo 
+      run: make binary
