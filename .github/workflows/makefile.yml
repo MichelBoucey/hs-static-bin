@@ -15,8 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Build hs-static-bin Docker image
-      run: make image
+    - name: Pull hs-static-bin Docker image
+      run: |
+        docker pull docker pull ghcr.io/michelboucey/hs-static-bin:ghc-9.8.2
+        docker image tag ghcr.io/michelboucey/hs-static-bin:ghc-9.8.2 hs-static-bin:ghc-9.8.2
 
     - name: Build Haskell binary artifacts in the given Haskell Git repo 
       run: make binary
