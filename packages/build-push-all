@@ -9,6 +9,8 @@ for (@versions) {
 
   chop $_;
 
-  system("HASKELL_GHC_VERSION=$_ ./build-push");
+  if ($_ eq "9.10.2") {
+  system("HASKELL_GHC_VERSION=$_ packages/build-push");
+  }
 
 }
