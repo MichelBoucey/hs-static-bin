@@ -2,7 +2,7 @@
 
 ## 1. Goal
 
-The goal of `hs-static-bin` is to build easily Haskell static binaries through an adhoc Docker container, without never to have to login into it. The Haskell binary artifacts are delivered on the local host with the right ownership.
+The goal of `hs-static-bin` is to build easily `Haskell static binaries` through an adhoc Docker container, without never to have to login into it. The Haskell binary artifacts are delivered on the localhost with the right ownership. No localhost installation of Haskell build environment needed. Can run in a CI/CD workflow (tested with Github Actions).
 
 ## 2. Usage
 
