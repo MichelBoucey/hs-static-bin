@@ -18,8 +18,6 @@ help:
 
 image:
 	docker buildx build \
-	--build-arg CURUID=$(shell id -u) \
-	--build-arg CURGID=$(shell id -g) \
 	--build-arg BOOTSTRAP_HASKELL_GHC_VERSION=$(HASKELL_GHC_VERSION) \
 	--build-arg BOOTSTRAP_HASKELL_CABAL_VERSION=$(HASKELL_CABAL_VERSION) \
 	-t hs-static-bin:ghc-$(HASKELL_GHC_VERSION) docker/
@@ -38,10 +36,13 @@ binary:
 	fi
 	@test -d $(CURDIR)/static-bin || mkdir $(CURDIR)/static-bin
 	docker run \
+	--env HASKELL_GIT_REPO_URL \
+	--env CURUID=$(shell id -u) \
+	--env CURGID=$(shell id -g) \
 	--mount type=bind,src=$(CURDIR)/script/,dst=/tmp/script/ \
 	--mount type=bind,src=$(CURDIR)/static-bin/,dst=/tmp/bin/ \
 	hs-static-bin:ghc-$(HASKELL_GHC_VERSION) \
-        /bin/ash /tmp/script/build.sh $(HASKELL_GIT_REPO_URL)
+        /bin/ash /tmp/script/build.sh
 	strip --strip-all $(CURDIR)/static-bin/*
 	make --no-print-directory docker-clean-containers
 
