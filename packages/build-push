@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+print "Building and pushing ghcr.io/michelboucey/hs-static-bin:ghc-$ENV{HASKELL_GHC_VERSION}\n";
+
+print "HASKELL_CABAL_VERSION=3.16.0.0 HASKELL_GHC_VERSION=$ENV{HASKELL_GHC_VERSION} make image\n";
+system("HASKELL_CABAL_VERSION=3.16.0.0 HASKELL_GHC_VERSION=$ENV{HASKELL_GHC_VERSION} make image");
+
+print "docker image tag hs-static-bin:ghc-$ENV{HASKELL_GHC_VERSION} ghcr.io/michelboucey/hs-static-bin:ghc-$ENV{HASKELL_GHC_VERSION}\n";
+system("docker image tag hs-static-bin:ghc-$ENV{HASKELL_GHC_VERSION} ghcr.io/michelboucey/hs-static-bin:ghc-$ENV{HASKELL_GHC_VERSION}");
+
+print "docker push ghcr.io/michelboucey/hs-static-bin:ghc-$ENV{HASKELL_GHC_VERSION}\n";
+system("docker push ghcr.io/michelboucey/hs-static-bin:ghc-$ENV{HASKELL_GHC_VERSION}");
+
+print "\n";
