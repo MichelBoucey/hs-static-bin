@@ -3,14 +3,12 @@
 use warnings;
 use strict;
 
-my @versions=(`ghcup list -r -o | grep -Po '^ghc\\s[\\d.]+' | sed 's/ghc\\s*//g'`);
+my @versions=(`ghcup list -r -o | grep -Po '(?<=^ghc )([\\d.]+)'`);
 
 for (@versions) {
 
   chop $_;
 
-  if ($_ eq "9.10.2") {
   system("HASKELL_GHC_VERSION=$_ packages/build-push");
-  }
 
 }
