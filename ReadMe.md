@@ -115,7 +115,7 @@ _N.B._: Cleans only objects with the current GHC version tag.
 
 - Clone this repo
 - Set properly and export `HASKELL_CABAL_VERSION`, `HASKELL_GHC_VERSION` and `HASKELL_GIT_REPO_URL`
-- Run `make image`
+- Run `make pull-image` or `make image`
 - Run `make binary`
 - Run `ldd` against the just-built binary artifact delivered in `static-bin/` to check and ensure that it has no library dependencies.
 - Run the just-built binary artifact to check that the command is usable.
