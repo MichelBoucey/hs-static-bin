@@ -3,6 +3,13 @@
 use warnings;
 use strict;
 
+if ($ENV{HASKELL_GHC_VERSION} eq "") {
+
+  print("HASKELL_GHC_VERSION have to be set\n");
+  exit 0;
+
+}
+
 my $CABAL_VERSION = "3.16.0.0";
 my $GHC_VERSION = $ENV{HASKELL_GHC_VERSION};
 
