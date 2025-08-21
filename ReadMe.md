@@ -10,9 +10,10 @@ The goal of `hs-static-bin` is to build easily `Haskell static binaries` through
 [user@box ~] $ make
 Usage:
 
-   image            Build hs-static-bin Docker image
    show-env-vars    Show hs-static-bin environment variables settings
    envrc            Create a .envrc for hs-static-bin environment variables
+   image            Build hs-static-bin Docker image
+   pull-image       Get pre-built hs-static-bin Docker image
    binary           Build an Haskell static binary
    clean            Remove static-bin/ where Haskell binary artifacts are delivered
    docker-clean     Remove hs-static-bin image and containers from Docker
@@ -53,7 +54,7 @@ HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 
 ### 3.3. Create a hs-static-bin .envrc file
 
-Based upon the `hs-static-bin` env vars currently exported, one can create a corresponding `.envrc` file.
+_Optionally_, based upon the `hs-static-bin` env vars currently exported, one can create a corresponding `.envrc` file.
 
 ```
 [user@box hs-static-bin] $ make envrc
@@ -63,17 +64,30 @@ export HASKELL_GHC_VERSION=9.8.2
 export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 ```
 
-## 4. Launch the Docker image build
+## 4. Get hs-static-bin Docker image
+
+- You can build by yourself this Docker image or pull a pre-built one.
+- `hs-static-bin` Docker images are tagged with the GHC version embedded, like `hs-static-bin:ghc-9.8.2`
+- You won't need to login into `hs-static-bin` containers. They normally stop on `exit 0` and cleared just after from Docker
+
+### 4.1. Get a pre-built hs-static-bin Docker image
+
+Get the pre-built `hs-static-bin` Docker image you need from [hs-static-bin package](https://github.com/MichelBoucey/hs-static-bin/pkgs/container/hs-static-bin).
+
+```
+[user@box hs-static-bin] $ make pull-image
+```
+
+_N.B._: if the `hs-static-bin` Docker image you need is missing, [open an issue](https://github.com/MichelBoucey/hs-static-bin/issues).
+
+### 4.2. Build hs-static-bin Docker image
+
+- [Docker CLI plugin buildx](https://github.com/docker/buildx) is needed
+- A single build is enough for the intended usage
 
 ```
 [user@box hs-static-bin] $ make image
 ```
-
-_N.B._ :
-- [Docker CLI plugin buildx](https://github.com/docker/buildx) is needed
-- `hs-static-bin` Docker images are tagged with the GHC version embedded, like `hs-static-bin:ghc-9.8.2`
-- A single build is enough for the intended usage
-- You won't need to login into `hs-static-bin` containers. They normally stop on `exit 0` and cleared just after from Docker
 
 ## 5. Launch the Haskell binary artifact build
 
@@ -102,7 +116,7 @@ _N.B._: Cleans only objects with the current GHC version tag.
 
 - Clone this repo
 - Set properly and export `HASKELL_CABAL_VERSION`, `HASKELL_GHC_VERSION` and `HASKELL_GIT_REPO_URL`
-- Run `make image`
+- Run `make pull-image` or `make image`
 - Run `make binary`
 - Run `ldd` against the just-built binary artifact delivered in `static-bin/` to check and ensure that it has no library dependencies.
 - Run the just-built binary artifact to check that the command is usable.

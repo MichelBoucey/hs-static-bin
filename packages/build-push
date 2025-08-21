@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+if ($ENV{HASKELL_GHC_VERSION} eq "") {
+
+  print("HASKELL_GHC_VERSION have to be set\n");
+  exit 0;
+
+}
+
+my $CABAL_VERSION = "3.16.0.0";
+my $GHC_VERSION = $ENV{HASKELL_GHC_VERSION};
+
+print "Building and pushing ghcr.io/michelboucey/hs-static-bin:ghc-$GHC_VERSION\n";
+
+my $make_image = "HASKELL_CABAL_VERSION=$CABAL_VERSION HASKELL_GHC_VERSION=$GHC_VERSION make image";
+print $make_image."\n";
+system($make_image);
+
+my $docker_image_tag = "docker image tag hs-static-bin:ghc-$GHC_VERSION ghcr.io/michelboucey/hs-static-bin:ghc-$GHC_VERSION}";
+print $docker_image_tag."\n";
+system($docker_image_tag);
+
+my $docker_push = "docker push ghcr.io/michelboucey/hs-static-bin:ghc-$GHC_VERSION}";
+print $docker_push."\n";
+system($docker_push);
+
+print "\n";

@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+my @versions=(`ghcup list -r -o | grep -Po '(?<=^ghc )([\\d.]+)'`);
+
+for (@versions) {
+
+  chop $_;
+
+  system("HASKELL_GHC_VERSION=$_ packages/build-push");
+
+}
