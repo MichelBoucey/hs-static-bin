@@ -10,9 +10,10 @@ The goal of `hs-static-bin` is to build easily `Haskell static binaries` through
 [user@box ~] $ make
 Usage:
 
-   image            Build hs-static-bin Docker image
    show-env-vars    Show hs-static-bin environment variables settings
    envrc            Create a .envrc for hs-static-bin environment variables
+   image            Build hs-static-bin Docker image
+   pull-image       Get pre-built hs-static-bin Docker image
    binary           Build an Haskell static binary
    clean            Remove static-bin/ where Haskell binary artifacts are delivered
    docker-clean     Remove hs-static-bin image and containers from Docker

@@ -5,10 +5,10 @@ export HASKELL_GIT_REPO_URL
 help:
 	@echo "Usage:"
 	@echo
-	@echo "   image            Build hs-static-bin Docker image"
-	@echo "   pull-image       Get pre-built hs-static-bin Docker image"
 	@echo "   show-env-vars    Show hs-static-bin environment variables settings"
 	@echo "   envrc            Create a .envrc for hs-static-bin environment variables"
+	@echo "   image            Build hs-static-bin Docker image"
+	@echo "   pull-image       Get pre-built hs-static-bin Docker image"
 	@echo "   binary           Build an Haskell static binary"
 	@echo "   clean            Remove static-bin/ where Haskell binary artifacts are delivered"
 	@echo "   docker-clean     Remove hs-static-bin image and containers from Docker"
