@@ -1,3 +1,5 @@
+#!/bin/ash
+
 cd /tmp
 
 echo "Cloning $HASKELL_GIT_REPO_URL"
