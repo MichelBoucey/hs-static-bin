@@ -1,4 +1,4 @@
-# hs-static-bin
+# hs-static-bin [![hs-static-bin](https://github.com/MichelBoucey/hs-static-bin/actions/workflows/makefile.yml/badge.svg)](https://github.com/MichelBoucey/hs-static-bin/actions/workflows/makefile.yml)
 
 ## 1. Goal
 
