@@ -18,9 +18,10 @@ Usage:
    clean            Remove static-bin/ where Haskell binary artifacts are delivered
    docker-clean     Remove hs-static-bin image and containers from Docker
    clean-all        Clean and docker-clean combined
+   version          Show version
    help             Show this usage notice
 
-Copyright (c) 2025 Michel Boucey (github.com/MichelBoucey/hs-static-bin)
+Copyright (c) 2025-2026 Michel Boucey (github.com/MichelBoucey/hs-static-bin)
 ```
 
 ## 3. The hs-static-bin environment variables
@@ -39,6 +40,14 @@ You have to set and export those env vars before running commands:
 [user@box ~] $ export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
 ```
 
+For a `monorepo` (`cabal.project`), you have to add:
+
+- `HASKELL_CABAL_SUB_PROJECT`: the name of the package's name, which is also the corresponding sub-directory's name.
+
+```
+[user@box ~] $ export HASKELL_CABAL_SUB_PROJECT=project
+```
+
 _N.B._: `GHC` and `Cabal` versions are those supported by `GHCup` at build time.
 
 ### 3.2. Check the hs-static-bin environment variables
@@ -50,6 +59,7 @@ You can check the `hs-static-bin` environment:
 HASKELL_CABAL_VERSION=3.16.0.0
 HASKELL_GHC_VERSION=9.8.2
 HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
+HASKELL_CABAL_SUB_PROJECT=
 ```
 
 ### 3.3. Create a hs-static-bin .envrc file
@@ -62,6 +72,7 @@ _Optionally_, based upon the `hs-static-bin` env vars currently exported, one ca
 export HASKELL_CABAL_VERSION=3.16.0.0
 export HASKELL_GHC_VERSION=9.8.2
 export HASKELL_GIT_REPO_URL=https://github.com/ndmitchell/ghcid
+export HASKELL_CABAL_SUB_PROJECT=
 ```
 
 ## 4. Get hs-static-bin Docker image
@@ -115,7 +126,7 @@ _N.B._: Cleans only objects with the current GHC version tag.
 ## 7. In brief, how to test and check hs-static-bin ?
 
 - Clone this repo
-- Set properly and export `HASKELL_CABAL_VERSION`, `HASKELL_GHC_VERSION` and `HASKELL_GIT_REPO_URL`
+- Set properly and export `HASKELL_CABAL_VERSION`, `HASKELL_GHC_VERSION`, `HASKELL_GIT_REPO_URL` and, when necessary, `HASKELL_CABAL_SUB_PROJECT`
 - Run `make pull-image` or `make image`
 - Run `make binary`
 - Run `ldd` against the just-built binary artifact delivered in `static-bin/` to check and ensure that it has no library dependencies.
