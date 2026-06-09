@@ -1,6 +1,9 @@
+HS_STATIC_BIN_VER=1.3.0
+
 export HASKELL_GHC_VERSION
 export HASKELL_CABAL_VERSION
 export HASKELL_GIT_REPO_URL
+export HASKELL_CABAL_SUB_PROJECT
 
 help:
 	@echo "Usage:"
@@ -13,9 +16,13 @@ help:
 	@echo "   clean            Remove static-bin/ where Haskell binary artifacts are delivered"
 	@echo "   docker-clean     Remove hs-static-bin image and containers from Docker"
 	@echo "   clean-all        Clean and docker-clean combined"
+	@echo "   version          Show version"
 	@echo "   help             Show this usage notice"
 	@echo
-	@echo "Copyright (c) 2025 Michel Boucey (github.com/MichelBoucey/hs-static-bin)"
+	@echo "Copyright (c) 2025-2026 Michel Boucey (github.com/MichelBoucey/hs-static-bin)"
+
+version:
+	@echo $(HS_STATIC_BIN_VER)
 
 image:
 	docker buildx build \
@@ -31,10 +38,17 @@ show-env-vars:
 	@echo "HASKELL_CABAL_VERSION=$(HASKELL_CABAL_VERSION)"
 	@echo "HASKELL_GHC_VERSION=$(HASKELL_GHC_VERSION)"
 	@echo "HASKELL_GIT_REPO_URL=$(HASKELL_GIT_REPO_URL)"
+	@echo "HASKELL_CABAL_SUB_PROJECT=$(HASKELL_CABAL_SUB_PROJECT)"
 
 binary:
+	@echo "hs-static-bin version $(HS_STATIC_BIN_VER)"
 	@if [ -n "$$HASKELL_GHC_VERSION" ] && [ -n "$$HASKELL_GIT_REPO_URL" ]; then \
-	    echo "OK... trying to build Haskell static binary artifacts at $(HASKELL_GIT_REPO_URL)"; \
+	    echo -n "Building Haskell static binary artifact at $(HASKELL_GIT_REPO_URL)"; \
+            if [ -n "$$HASKELL_CABAL_SUB_PROJECT" ]; then \
+               echo " in Cabal sub-project $(HASKELL_CABAL_SUB_PROJECT)"; \
+            else \
+               echo; \
+            fi \
 	else \
 	    echo "You have to set env vars HASKELL_GHC_VERSION and HASKELL_GIT_REPO_URL"; \
 	    exit 1; \
@@ -42,6 +56,7 @@ binary:
 	@test -d $(CURDIR)/static-bin || mkdir $(CURDIR)/static-bin
 	docker run \
 	--env HASKELL_GIT_REPO_URL \
+	--env HASKELL_CABAL_SUB_PROJECT \
 	--env CURUID=$(shell id -u) \
 	--env CURGID=$(shell id -g) \
 	--mount type=bind,src=$(CURDIR)/script/,dst=/tmp/script/ \
