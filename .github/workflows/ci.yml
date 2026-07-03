@@ -16,8 +16,9 @@ jobs:
     steps:
     - uses: actions/checkout@v7
 
-    - name: Install Just
-      run: apt install just
+    - uses: extractions/setup-just@v4
+      with:
+        just-version: 'latest'
 
     - name: Pull the spefified hs-static-bin Docker image
       run: |
